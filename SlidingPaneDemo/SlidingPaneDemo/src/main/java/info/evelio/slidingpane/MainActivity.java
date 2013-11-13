@@ -2,17 +2,15 @@ package info.evelio.slidingpane;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SlidingPaneLayout;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements LeftPane.OnItemClickListener {
 
+  private static final int INITIAL_ITEM_POSITION = 0;
   private SlidingPaneLayout mPaneLayout;
 
   @Override
@@ -39,10 +37,15 @@ public class MainActivity extends Activity {
       }
     });
 
+  }
+
+  @Override
+  protected void onPostCreate(Bundle savedInstanceState) {
+    super.onPostCreate(savedInstanceState);
+
     if (savedInstanceState == null) {
-      getFragmentManager().beginTransaction()
-          .add(R.id.container, new PlaceholderFragment())
-          .commit();
+      final LeftPane leftPane = (LeftPane) getFragmentManager().findFragmentById(R.id.left_pane);
+      leftPane.setCurrentItem(INITIAL_ITEM_POSITION);
     }
   }
 
@@ -79,20 +82,13 @@ public class MainActivity extends Activity {
     }
   }
 
-  /**
-   * A placeholder fragment containing a simple view.
-   */
-  public static class PlaceholderFragment extends Fragment {
+  @Override
+  public void onItemClick(String item) {
+    mPaneLayout.closePane();
 
-    public PlaceholderFragment() {
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-      View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-      return rootView;
-    }
+    getFragmentManager().beginTransaction()
+        .replace(R.id.container, ContentFragment.newInstance(item))
+        .commit();
   }
 
 }
