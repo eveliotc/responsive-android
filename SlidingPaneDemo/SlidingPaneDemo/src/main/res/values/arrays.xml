@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="left_pane_items">
+    <item>@string/item_1</item>
+    <item>@string/item_2</item>
+    <item>@string/item_3</item>
+    <item>@string/item_4</item>
+  </string-array>
+</resources>

@@ -1,0 +1,19 @@
+<android.support.v4.widget.SlidingPaneLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sliding_pane">
+
+  <fragment
+      android:layout_width="@dimen/left_pane_width"
+      android:layout_height="match_parent"
+      android:name="info.evelio.slidingpane.LeftPane"
+      android:id="@+id/left_pane"/>
+
+  <FrameLayout
+      android:layout_width="320dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:id="@+id/container"/>
+
+</android.support.v4.widget.SlidingPaneLayout>
